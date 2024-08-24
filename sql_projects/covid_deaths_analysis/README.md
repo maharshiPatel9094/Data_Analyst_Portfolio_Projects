@@ -70,3 +70,22 @@ select SUM(total_cases) as casesTotal,SUM(cast(new_deaths as int)) as deathsTota
 from portfolio_projects..CovidDeaths
 where continent is not null
 order by 1,2
+
+
+## SQL_Queries used in Covuid Vacination analysis
+
+# join both the tables
+select *
+from portfolio_projects..CovidDeaths as deaths
+inner join portfolio_projects..CovidVacinations as vaccination
+on deaths.location = vaccination.location
+and deaths.date = vaccination.date
+
+# looking at total population vs vaccination
+select deaths.continent , deaths.location, deaths.date, deaths.population, vaccination.new_vaccinations, sum(cast(vaccination.new_vaccinations as int)) over (partition by deaths.location order by deaths.location, deaths.date)
+from portfolio_projects..CovidDeaths as deaths
+join portfolio_projects..CovidVacinations as vaccination
+on deaths.location = vaccination.location
+and deaths.date = vaccination.date
+where deaths.continent is not null
+order by 2,3
