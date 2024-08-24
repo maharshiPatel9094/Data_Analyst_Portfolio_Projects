@@ -55,3 +55,4 @@ from portfolio_projects.dbo.CovidDeaths
 where continent IS NULL
 group by location
 order by 2 desc
+
