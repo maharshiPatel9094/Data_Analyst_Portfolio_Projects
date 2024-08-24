@@ -56,3 +56,17 @@ where continent IS NULL
 group by location
 order by 2 desc
 
+# GLOBAL NUMBERS
+# In this analysis, we can come to know number of total cases and total deaths and also a death percenatge on a particular date 
+select date,SUM(total_cases) as casesTotal,SUM(cast(new_deaths as int)) as deathsTotal, (SUM(cast(new_deaths as int))/SUM(total_cases))*100 as death_percentage
+from portfolio_projects..CovidDeaths
+where continent is not null
+group by date
+order by 1,2
+
+# total world cases , deaths and death percenatge 
+# total world cases were 21556751741 , total deaths were 3180206 and death percentage was 0.014
+select SUM(total_cases) as casesTotal,SUM(cast(new_deaths as int)) as deathsTotal, (SUM(cast(new_deaths as int))/SUM(total_cases))*100 as death_percentage
+from portfolio_projects..CovidDeaths
+where continent is not null
+order by 1,2
